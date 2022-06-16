@@ -14,20 +14,18 @@ import backend.test.tutorial.javastreamsql.models.Employee;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		// bisa di uncomment untuk menggunakan database :
-		// ex1_a();
-		// ex1_b();
-		// ex2();
-		// ex3_a();
-		// ex3_b();
-		// ex4();
-		// ex5();
-		// ex6();
-		// ex7_a();
-		// ex7_b();
-		// ex8_a();
-		// ex8_b();
-		// ex9_a();
-		// ex9_b();
+		// sample_a();
+		// sample_a1();
+		// sample2();
+		// sample3_a();
+		// sample3_b();
+		// sample4();
+		// sample5();
+		// sample6();
+		// sample7_a();
+		// sample7_b();
+		// sample8_a();
+		// sample8_b();
 	}
 
 	/**
@@ -36,7 +34,7 @@ public class Main {
 	 * Top 3 richest men
 	 *
 	 */
-	public static void ex1_a () {
+	public static void sample_a () {
 		List<Employee> result = employees().stream()
 			.filter(employee -> "M".equals(employee.getGender()))	
 			.sorted((e1, e2) -> e2.getSalary() - e1.getSalary())	
@@ -55,7 +53,7 @@ public class Main {
 	/**
 	 * Ex1: WITHOUT Stream version
 	 */
-	public static void ex1_b () {
+	public static void sample_a1 () {
 		List<Employee> temp = new ArrayList<>();
 		for (Employee employee : employees()) {
 			if ("M".equals(employee.getGender())) { // WHERE gender = 'M'
@@ -84,7 +82,7 @@ public class Main {
 	 *		FROM employees
 	 *		ORDER BY gender ASC, salary ASC, name ASC
 	 */
-	public static void ex2 () {
+	public static void sample2 () {
 		List<Employee> result = employees().stream()
 			.sorted(
 				Comparator.comparing(Employee::getGender)	// ORDER BY gender ASC
@@ -99,7 +97,7 @@ public class Main {
 				System.out.println(String.format("%s      | %s   | %s", employee.getGender(), employee.getSalary(), employee.getName()))
 		);
 	}
-	public static void ex3_a () {
+	public static void sample3_a () {
 		Optional<Integer> youngestAge = employees().stream()
 			.map(Employee::getAge)
 			.min(Integer::compare);		
@@ -130,7 +128,7 @@ public class Main {
 	/**
 	 * Ex3: with reduce() syntax
 	 */
-	public static void ex3_b () {
+	public static void sample3_b () {
 		Optional<Integer> youngestAge = employees().stream()
 			.map(Employee::getAge)
 			.reduce((a, b) -> (a < b) ? a : b);		
@@ -170,7 +168,7 @@ public class Main {
 	 * Ex4: MAX + GROUP BY
 	 * Richest man and richest woman
 	 */
-	public static void ex4 () {
+	public static void sample4 () {
 		Map<String, Optional<Integer>> result = employees().stream()
 			.collect(Collectors.groupingBy(
 				Employee::getGender,														
@@ -187,7 +185,7 @@ public class Main {
 	 * Ex5: AVG + GROUP BY
 	 * Average salary of men and women
 	 */
-	public static void ex5 () {
+	public static void sample5 () {
 		Map<String, Double> result = employees().stream()
 			.collect(Collectors.groupingBy(
 				Employee::getGender,							
@@ -218,34 +216,8 @@ public class Main {
 		);
 	}
 
-	/**
-	 * Ex7 (A): DISTINCT and GROUP BY
-	 */
-	public static void ex7_a () {
-		Map<Integer, List<Employee>> genders2 = employees().stream()
-			.collect(Collectors.groupingBy(Employee::getSalary));		// GROUP BY
-
-		// Print
-		System.out.println(String.format("Genders: %s", genders2.entrySet().stream().map(Map.Entry::getKey).map(Object::toString).collect(Collectors.joining(", "))));
-	}
-
-	/**
-	 * Ex7 (B): DISTINCT and GROUP BY
-	 */
-	public static void ex7_b () {
-		List<Integer> genders1 = employees().stream()
-			.map(Employee::getSalary)
-			.distinct()													// DISTINCT
-			.collect(Collectors.toList());
-
-		// Print
-		System.out.println(String.format("Genders: %s", genders1.stream().map(Object::toString).collect(Collectors.joining(", "))));
-	}
-
-	/**
-	 * Ex8: CROSS JOIN
-	 */
-	public static void ex8_a () {
+	
+	public static void sample7_a () {
 		String[] t1 = {"A", "B", "C"};
 		String[] t2 = {"B", "C", "D"};
 		String[] t3 = {"C", "F", "E"};
@@ -266,7 +238,7 @@ public class Main {
 	/**
 	 * Ex8: with InMemorySQL
 	 */
-	public static void ex8_b () throws SQLException {
+	public static void sample7_b () throws SQLException {
 		List<Tuple> t1 = tupleInit("A", "B", "C");
 		List<Tuple> t2 = tupleInit("B", "C", "D");
 		List<Tuple> t3 = tupleInit("C", "D", "E");
@@ -283,7 +255,7 @@ public class Main {
 	/**
 	 * Ex9: INNER JOIN
 	 */
-	public static void ex9_a () {
+	public static void sample8_a () {
 		String[] t1 = {"A", "B", "C"};
 		String[] t2 = {"B", "C", "D"};
 		String[] t3 = {"C", "F", "E"};
@@ -305,7 +277,7 @@ public class Main {
 	/**
 	 * Ex9: with InMemorySQL
 	 */
-	public static void ex9_b () throws SQLException {
+	public static void sample8_b () throws SQLException {
 		List<Tuple> t1 = tupleInit("A", "B", "C");
 		List<Tuple> t2 = tupleInit("B", "C", "D");
 		List<Tuple> t3 = tupleInit("C", "D", "E");
