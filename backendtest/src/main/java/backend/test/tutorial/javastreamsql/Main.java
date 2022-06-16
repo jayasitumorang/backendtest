@@ -13,7 +13,7 @@ import backend.test.tutorial.javastreamsql.models.Employee;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		// You can uncomment each of those exercise below :
+		// bisa di uncomment untuk menggunakan database :
 		// ex1_a();
 		// ex1_b();
 		// ex2();
@@ -99,26 +99,6 @@ public class Main {
 				System.out.println(String.format("%s      | %s   | %s", employee.getGender(), employee.getSalary(), employee.getName()))
 		);
 	}
-
-	/**
-	* Contoh3: Fungsi agregat: `MIN` + `MAX` + `AVG` + `COUNT` + `SUM`
-	*
-	* `MIN`: Usia termuda
-	* PILIH MIN (usia) SEBAGAI usia termuda DARI karyawan;
-	*
-	* `MAX`: Gaji tertinggi
-	* PILIH MAX(gaji) SEBAGAI Gaji tertinggi DARI karyawan;
-	*
-	* `AVG`: Usia rata-rata karyawan
-	* PILIH AVG(usia) SEBAGAI usia rata-rata DARI karyawan;
-	*
-	* `COUNT`: Jumlah wanita
-	* SELECT COUNT(*) AS womenCount DARI karyawan WHERE gender = 'F';
-	*
-	* `SUM`: Jumlah gaji dengan pajak 21,7%
-	* PILIH SUM(gaji) * 1,217 SEBAGAI salarySumWithTaxes DARI karyawan;
-	*/
-
 	public static void ex3_a () {
 		Optional<Integer> youngestAge = employees().stream()
 			.map(Employee::getAge)
